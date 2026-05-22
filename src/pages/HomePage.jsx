@@ -270,7 +270,7 @@ export default function HomePage({ session, onSelectDashboard, onLogout }) {
                 fontWeight: 700,
                 marginBottom: 8,
               }}>
-                Global Externals
+                Externals
               </h2>
               <p style={{
                 fontFamily: F.body,
@@ -376,7 +376,7 @@ export default function HomePage({ session, onSelectDashboard, onLogout }) {
                 fontWeight: 700,
                 marginBottom: 8,
               }}>
-                Local Internals
+                Internals
               </h2>
               <p style={{
                 fontFamily: F.body,

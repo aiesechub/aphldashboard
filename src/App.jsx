@@ -9,6 +9,7 @@ import EventsManager      from "./pages/EventsManager.jsx";
 import Opportunities      from "./pages/Opportunities.jsx";
 import ExternalsDashboard from "./pages/ExternalsDashboard";
 import InternalsDashboard from "./pages/InternalsDashboard";
+import HomePage           from "./pages/HomePage.jsx";
 
 // ─── GOOGLE ICON ──────────────────────────────────────────────────────────────
 function GoogleIcon() {
@@ -344,9 +345,13 @@ export default function AdminApp() {
     />
   );
 
-  if (!selectedSection) return <SectionSelector onSelectSection={setSelectedSection} />;
+  if (!selectedSection) return (
+    <HomePage
+      session={session}
+      onSelectDashboard={setSelectedSection}
+      onLogout={() => setSelectedSection(null)}
+    />
+  );
   if (selectedSection === "externals") return <ExternalsDashboard session={session} onBack={handleBack} />;
   if (selectedSection === "internals") return <InternalsDashboard session={session} onBack={handleBack} />;
-
-  return <SectionSelector onSelectSection={setSelectedSection} />;
 }

@@ -6,7 +6,7 @@ import { supabase } from "./lib/supabase";
 import { F, BRAND, NOISE_SVG, Spinner } from "./lib/constants.jsx";
 
 import EventsManager      from "./pages/EventsManager.jsx";
-import Opportunities    from "./pages/Opportunities.jsx";
+import Opportunities      from "./pages/Opportunities.jsx";
 import ExternalsDashboard from "./pages/ExternalsDashboard";
 import InternalsDashboard from "./pages/InternalsDashboard";
 
@@ -29,49 +29,75 @@ function LoginScreen({ domainError, onGoogleSignIn, loading }) {
       minHeight: "100vh",
       display: "flex", alignItems: "center", justifyContent: "center",
       fontFamily: F.body,
-      backgroundColor: BRAND.offWhite,
-      backgroundImage: NOISE_SVG,
+      backgroundColor: "#ffffff",
       position: "relative", overflow: "hidden",
+      padding: "20px",
+      boxSizing: "border-box",
     }}>
-      {/* Soft background blobs */}
-      <div style={{ position: "absolute", top: "-8rem", right: "-6rem", width: "30rem", height: "30rem", borderRadius: "9999px", background: `radial-gradient(circle, ${BRAND.blueMid}55 0%, transparent 70%)`, pointerEvents: "none" }} />
-      <div style={{ position: "absolute", bottom: "-6rem", left: "-4rem", width: "24rem", height: "24rem", borderRadius: "9999px", background: `radial-gradient(circle, ${BRAND.blueLight}88 0%, transparent 70%)`, pointerEvents: "none" }} />
+      {/* Subtle blue accent corners */}
+      <div style={{
+        position: "absolute", top: 0, left: 0, right: 0, height: 4,
+        background: `linear-gradient(90deg, ${BRAND.blue} 0%, ${BRAND.blueMid} 50%, ${BRAND.blueLight} 100%)`,
+      }} />
+      <div style={{
+        position: "absolute", top: "-12rem", right: "-12rem",
+        width: "28rem", height: "28rem", borderRadius: "9999px",
+        background: `radial-gradient(circle, ${BRAND.blueLight}22 0%, transparent 70%)`,
+        pointerEvents: "none",
+      }} />
+      <div style={{
+        position: "absolute", bottom: "-10rem", left: "-10rem",
+        width: "24rem", height: "24rem", borderRadius: "9999px",
+        background: `radial-gradient(circle, ${BRAND.blueLight}1a 0%, transparent 70%)`,
+        pointerEvents: "none",
+      }} />
 
-      {/* Card wrapper */}
-      <div style={{ position: "relative", zIndex: 10, width: "100%", maxWidth: 420, padding: "0 20px", boxSizing: "border-box" }}>
+      {/* Card */}
+      <div style={{ position: "relative", zIndex: 10, width: "100%", maxWidth: 420 }}>
         <div style={{
           position: "relative",
-          backgroundColor: BRAND.white,
-          border: `1.5px solid ${BRAND.border}`,
+          backgroundColor: "#ffffff",
+          border: `1px solid ${BRAND.border}`,
           borderRadius: 20,
-          padding: "38px 32px",
-          boxShadow: "0 0 20px rgba(3, 126, 243, 0.3)",
-          backgroundImage: NOISE_SVG,
+          padding: "44px 36px 36px",
+          boxShadow: "0 4px 24px rgba(3, 126, 243, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
         }}>
           {/* Logo */}
-          <div style={{ display: "flex", justifyContent: "center", marginBottom: 24 }}>
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: 28 }}>
             <div style={{
               backgroundColor: BRAND.blue,
-              padding: "10px 22px", borderRadius: 14,
+              padding: "12px 24px", borderRadius: 12,
               display: "inline-flex", alignItems: "center",
-              boxShadow: `0 6px 20px ${BRAND.blue}40`,
+              boxShadow: `0 8px 24px ${BRAND.blue}33`,
             }}>
-              <img src="/src/assets/logos/AIESEC-white.png" alt="AIESEC PH"
+              <img src={aiesecLogo} alt="AIESEC PH"
                 style={{ height: "1.9rem", width: "auto", objectFit: "contain" }} />
             </div>
           </div>
 
           <div style={{ textAlign: "center", marginBottom: 32 }}>
-            <h1 style={{ fontFamily: F.barabara, fontSize: 19, margin: 0, color: BRAND.text, letterSpacing: "0.07em", textTransform: "uppercase" }}>
+            <h1 style={{
+              fontFamily: F.barabara, fontSize: 20, margin: 0,
+              color: BRAND.text, letterSpacing: "0.08em", textTransform: "uppercase",
+            }}>
               Admin Dashboard
             </h1>
-            <p style={{ fontFamily: F.body, fontSize: 13, color: BRAND.textLight, margin: "6px 0 0" }}>
+            <p style={{
+              fontFamily: F.body, fontSize: 13, color: BRAND.textLight,
+              margin: "8px 0 0", lineHeight: 1.5,
+            }}>
               Sign in with your AIESEC Google account
             </p>
           </div>
 
           {domainError && (
-            <div style={{ backgroundColor: "#fff4f4", border: `1.5px solid ${BRAND.danger}33`, borderRadius: 10, padding: "10px 14px", fontSize: 12, color: BRAND.danger, fontWeight: 600, marginBottom: 20 }}>
+            <div style={{
+              backgroundColor: "#fff5f5",
+              border: `1px solid ${BRAND.danger}33`,
+              borderRadius: 10, padding: "10px 14px",
+              fontSize: 12, color: BRAND.danger, fontWeight: 600,
+              marginBottom: 20,
+            }}>
               ✕ {domainError}
             </div>
           )}
@@ -82,25 +108,45 @@ function LoginScreen({ domainError, onGoogleSignIn, loading }) {
             style={{
               width: "100%",
               display: "flex", alignItems: "center", justifyContent: "center", gap: 12,
-              padding: "13px 20px",
-              backgroundColor: BRAND.white,
+              padding: "14px 20px",
+              backgroundColor: "#ffffff",
               border: `1.5px solid ${BRAND.border}`,
-              borderRadius: 13,
+              borderRadius: 12,
               cursor: loading ? "not-allowed" : "pointer",
-              opacity: loading ? 0.75 : 1,
+              opacity: loading ? 0.7 : 1,
               fontFamily: F.body, fontSize: 14, fontWeight: 600, color: BRAND.text,
-              boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-              transition: "all 0.15s",
+              transition: "all 0.15s ease",
             }}
-            onMouseEnter={e => { if (!loading) { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 6px 16px rgba(0,0,0,0.12)"; } }}
-            onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.08)"; }}>
+            onMouseEnter={e => {
+              if (loading) return;
+              e.currentTarget.style.borderColor = BRAND.blue;
+              e.currentTarget.style.backgroundColor = BRAND.blueGhost || "#f5fbff";
+              e.currentTarget.style.transform = "translateY(-1px)";
+              e.currentTarget.style.boxShadow = `0 4px 12px ${BRAND.blue}22`;
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.borderColor = BRAND.border;
+              e.currentTarget.style.backgroundColor = "#ffffff";
+              e.currentTarget.style.transform = "none";
+              e.currentTarget.style.boxShadow = "none";
+            }}>
             {loading ? <Spinner size={16} color={BRAND.text} /> : <GoogleIcon />}
             {loading ? "Signing in…" : "Continue with Google"}
           </button>
 
-          <p style={{ textAlign: "center", fontSize: 11, color: BRAND.textLight, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.14em", marginTop: 28, marginBottom: 0 }}>
-            AIESEC in the Philippines · Admin Only
-          </p>
+          <div style={{
+            marginTop: 28, paddingTop: 20,
+            borderTop: `1px solid ${BRAND.border}`,
+            textAlign: "center",
+          }}>
+            <p style={{
+              fontSize: 11, color: BRAND.textLight, fontWeight: 600,
+              textTransform: "uppercase", letterSpacing: "0.14em",
+              margin: 0,
+            }}>
+              AIESEC in the Philippines · Admin Only
+            </p>
+          </div>
         </div>
       </div>
       <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
@@ -115,71 +161,79 @@ function SectionSelector({ onSelectSection }) {
       minHeight: "100vh",
       display: "flex", alignItems: "center", justifyContent: "center",
       fontFamily: F.body,
-      backgroundColor: BRAND.offWhite,
-      backgroundImage: NOISE_SVG,
+      backgroundColor: "#ffffff",
       position: "relative", overflow: "hidden",
+      padding: "20px",
+      boxSizing: "border-box",
     }}>
-      {/* Soft background blobs */}
-      <div style={{ position: "absolute", top: "-8rem", right: "-6rem", width: "30rem", height: "30rem", borderRadius: "9999px", background: `radial-gradient(circle, ${BRAND.blueMid}55 0%, transparent 70%)`, pointerEvents: "none" }} />
-      <div style={{ position: "absolute", bottom: "-6rem", left: "-4rem", width: "24rem", height: "24rem", borderRadius: "9999px", background: `radial-gradient(circle, ${BRAND.blueLight}88 0%, transparent 70%)`, pointerEvents: "none" }} />
+      <div style={{
+        position: "absolute", top: 0, left: 0, right: 0, height: 4,
+        background: `linear-gradient(90deg, ${BRAND.blue} 0%, ${BRAND.blueMid} 50%, ${BRAND.blueLight} 100%)`,
+      }} />
+      <div style={{
+        position: "absolute", top: "-10rem", right: "-10rem",
+        width: "28rem", height: "28rem", borderRadius: "9999px",
+        background: `radial-gradient(circle, ${BRAND.blueLight}22 0%, transparent 70%)`,
+        pointerEvents: "none",
+      }} />
 
-      {/* Content */}
-      <div style={{ position: "relative", zIndex: 10, width: "100%", maxWidth: 560, padding: "0 20px", boxSizing: "border-box" }}>
-        {/* Logo */}
+      <div style={{ position: "relative", zIndex: 10, width: "100%", maxWidth: 560 }}>
         <div style={{ display: "flex", justifyContent: "center", marginBottom: 40 }}>
           <div style={{
             backgroundColor: BRAND.blue,
-            padding: "10px 22px", borderRadius: 14,
+            padding: "12px 24px", borderRadius: 12,
             display: "inline-flex", alignItems: "center",
-            boxShadow: `0 6px 20px ${BRAND.blue}40`,
+            boxShadow: `0 8px 24px ${BRAND.blue}33`,
           }}>
-            <img src="/src/assets/logos/AIESEC-white.png" alt="AIESEC PH"
+            <img src={aiesecLogo} alt="AIESEC PH"
               style={{ height: "1.9rem", width: "auto", objectFit: "contain" }} />
           </div>
         </div>
 
-        {/* Title */}
         <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <h1 style={{ fontFamily: F.barabara, fontSize: 26, margin: 0, color: BRAND.text, letterSpacing: "0.07em", textTransform: "uppercase" }}>
+          <h1 style={{
+            fontFamily: F.barabara, fontSize: 28, margin: 0,
+            color: BRAND.text, letterSpacing: "0.07em", textTransform: "uppercase",
+          }}>
             Site Manager
           </h1>
-          <p style={{ fontFamily: F.body, fontSize: 14, color: BRAND.textLight, margin: "12px 0 0", lineHeight: 1.6 }}>
+          <p style={{
+            fontFamily: F.body, fontSize: 14, color: BRAND.textLight,
+            margin: "12px 0 0", lineHeight: 1.6,
+          }}>
             Choose which portal you'd like to manage
           </p>
         </div>
 
-        {/* Button Grid */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
-          {/* Externals */}
           <button
             onClick={() => onSelectSection("externals")}
             style={{
               padding: "40px 24px",
               border: `2px solid ${BRAND.blue}`,
               borderRadius: 16,
-              backgroundColor: BRAND.white,
+              backgroundColor: "#ffffff",
               cursor: "pointer",
               transition: "all 0.25s ease",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: 16,
-              boxShadow: `0 0 0 0 ${BRAND.blue}00`,
-              textDecoration: "none",
+              display: "flex", flexDirection: "column", alignItems: "center", gap: 16,
+              boxShadow: "0 2px 8px rgba(3, 126, 243, 0.08)",
             }}
             onMouseEnter={e => {
               e.currentTarget.style.transform = "translateY(-4px)";
               e.currentTarget.style.boxShadow = `0 12px 28px ${BRAND.blue}22`;
-              e.currentTarget.style.backgroundColor = BRAND.blueGhost;
+              e.currentTarget.style.backgroundColor = BRAND.blueGhost || "#f5fbff";
             }}
             onMouseLeave={e => {
               e.currentTarget.style.transform = "none";
-              e.currentTarget.style.boxShadow = `0 0 0 0 ${BRAND.blue}00`;
-              e.currentTarget.style.backgroundColor = BRAND.white;
+              e.currentTarget.style.boxShadow = "0 2px 8px rgba(3, 126, 243, 0.08)";
+              e.currentTarget.style.backgroundColor = "#ffffff";
             }}>
             <span style={{ fontSize: 48 }}>🌍</span>
             <div style={{ textAlign: "center" }}>
-              <h2 style={{ fontFamily: F.barabara, fontSize: 18, margin: 0, color: BRAND.text, letterSpacing: "0.05em", textTransform: "uppercase" }}>
+              <h2 style={{
+                fontFamily: F.barabara, fontSize: 18, margin: 0,
+                color: BRAND.text, letterSpacing: "0.05em", textTransform: "uppercase",
+              }}>
                 Externals
               </h2>
               <p style={{ fontFamily: F.body, fontSize: 12, color: BRAND.textLight, margin: "6px 0 0" }}>
@@ -188,32 +242,26 @@ function SectionSelector({ onSelectSection }) {
             </div>
           </button>
 
-          {/* Internals */}
           <button
             onClick={() => onSelectSection("internals")}
             style={{
               padding: "40px 24px",
               border: `2px solid ${BRAND.border}`,
               borderRadius: 16,
-              backgroundColor: BRAND.white,
+              backgroundColor: "#ffffff",
               cursor: "pointer",
               transition: "all 0.25s ease",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: 16,
+              display: "flex", flexDirection: "column", alignItems: "center", gap: 16,
               opacity: 0.6,
-              textDecoration: "none",
             }}
-            onMouseEnter={e => {
-              e.currentTarget.style.opacity = "0.8";
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.opacity = "0.6";
-            }}>
+            onMouseEnter={e => { e.currentTarget.style.opacity = "0.8"; }}
+            onMouseLeave={e => { e.currentTarget.style.opacity = "0.6"; }}>
             <span style={{ fontSize: 48 }}>🏢</span>
             <div style={{ textAlign: "center" }}>
-              <h2 style={{ fontFamily: F.barabara, fontSize: 18, margin: 0, color: BRAND.textMid, letterSpacing: "0.05em", textTransform: "uppercase" }}>
+              <h2 style={{
+                fontFamily: F.barabara, fontSize: 18, margin: 0,
+                color: BRAND.textMid, letterSpacing: "0.05em", textTransform: "uppercase",
+              }}>
                 Internals
               </h2>
               <p style={{ fontFamily: F.body, fontSize: 12, color: BRAND.textLight, margin: "6px 0 0" }}>
@@ -265,24 +313,24 @@ export default function AdminApp() {
   const handleGoogleSignIn = async () => {
     setLoading(true);
     setDomainError("");
-    const googleDomain = import.meta.env.VITE_GOOGLE_DOMAIN
+    const googleDomain = import.meta.env.VITE_GOOGLE_DOMAIN;
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        hd: googleDomain,                     // hints Google to pre-filter by domain
+        hd: googleDomain,
+        redirectTo: `${window.location.origin}${window.location.pathname}`,
       },
     });
     if (error) {
       setDomainError(error.message || "Google sign-in failed.");
       setLoading(false);
     }
-    // on success the page redirects; loading state resolves via onAuthStateChange
   };
 
   const handleBack = () => setSelectedSection(null);
 
   if (session === undefined) return (
-    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: BRAND.offWhite }}>
+    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "#ffffff" }}>
       <Spinner size={36} />
     </div>
   );

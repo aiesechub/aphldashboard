@@ -314,11 +314,12 @@ export default function AdminApp() {
     setLoading(true);
     setDomainError("");
     const googleDomain = import.meta.env.VITE_GOOGLE_DOMAIN;
+    const redirectTo = import.meta.env.VITE_OAUTH_REDIRECT_URI || `${window.location.origin}${window.location.pathname}`;
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
         hd: googleDomain,
-        redirectTo: `${window.location.origin}${window.location.pathname}`,
+        redirectTo,
       },
     });
     if (error) {

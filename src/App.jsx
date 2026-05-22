@@ -266,12 +266,10 @@ export default function AdminApp() {
     setLoading(true);
     setDomainError("");
     const googleDomain = import.meta.env.VITE_GOOGLE_DOMAIN
-    const redirectUrl = import.meta.env.VITE_GOOGLE_REDIRECT_URL
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
         hd: googleDomain,                     // hints Google to pre-filter by domain
-        redirectTo: redirectUrl,
       },
     });
     if (error) {
